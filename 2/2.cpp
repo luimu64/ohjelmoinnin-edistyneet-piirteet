@@ -1,8 +1,3 @@
-/*
-Kirjoita ohjelma, joka lukee päätteeltä yhden reaaliluvun. Ohjelma tulostaa
-syötettyä lukua edeltävän ja seuraavan kokonaisluvun lukualueelta.
-*/
-
 #include <cmath>
 #include <iostream>
 
