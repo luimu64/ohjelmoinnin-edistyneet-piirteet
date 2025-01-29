@@ -1,17 +1,3 @@
-/*
-Tee 1 tehtävän aliohjelmalle käänteinen aliohjelma aika_sekunneiksi, joka saa
-parametreina tunnit, minuutit ja sekunnit vuorokauden alusta lukien ja palautaa
-paluuarvonaan parametreja vastaavan sekuntimäärän vuorokauden alusta lukien.
-Testaa aliohjelmasi toimintaa sopivalla pääohjelmalla; esimerkiksi voit kutsua
-pääohjelmassasi ensin aika_sekunneiksi –aliohjelmaa ja sen jälkeen aliohjelmaa
-sekunnit_ajaksi (= harjoituksen 2 ratkaisu), jolle annat sekuntimääränä 1.
-aliohjelmakutsun palauttaman arvon. 2. aliohjelmakutsun palauttaman ajankohdan
-pitäisi olla sama kuin 1. aliohjelmakutsulle annettiin parametrina.
-Ajoesimerkki:
-2 tuntia 46 minuuttia 40 sekuntia on 10000 sekuntia joka on
-puolestaan 2 tuntia 46 minuuttia 40 sekuntia.
-*/
-
 #include <cmath>
 #include <iostream>
 

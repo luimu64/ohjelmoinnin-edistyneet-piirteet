@@ -1,19 +1,3 @@
-/*
-Tee aliohjelma aikojen_erotus, jolle välitetään parametreina kaksi ajankohtaa
-(tyyppiä aika_ty, ks. edellinen tehtävä). Aliohjelma laskee näiden kahden
-välitetyn ajankohdan erotuksen ja palauttaa sen paluuarvonaan (paluuarvo on myös
-tyyppiä aika_ty). Oletetaan parametrien arvojen olevan järkevät ja 2. parametrin
-ajankohta on suurempi tai yhtäsuuri kuin 1. parametrin; molemmat ajankohdat ovat
-saman vuorokauden sisällä. Tee myös pääohjelma, jolla testaat aliohjelman
-toiminnan. Pääohjelma kysyy käyttäjältä kahta ajankohtaa, joiden erotuksen
-aliohjelma laskee. Pääohjelma tulostaa sitten aliohjelman palauttaman erotuksen
-näytölle. Jälleen oletetaan käyttäjän syötteiden olevan järkevät. Vinkki: eräs
-vaihtoehto on muuntaa molemmat ajankohdat sekunneiksi, laskea erotus sekunteina
-ja muuntaa tämä erotus (sekunteina) jälleen tunneiksi, minuuteiksi ja
-sekunneiksi. Tässä kannattaa hyödyntää edellisen viikon aika_sekunneiksi()- ja
-sekunnit_ajaksi() –aliohjelmia.
-*/
-
 #include <cmath>
 #include <iostream>
 
