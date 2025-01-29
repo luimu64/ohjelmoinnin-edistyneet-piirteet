@@ -1,15 +1,36 @@
 /*
-Tee 1 tehtävän aliohjelmalle käänteinen aliohjelma aika_sekunneiksi, joka saa
-parametreina tunnit, minuutit ja sekunnit vuorokauden alusta lukien ja palautaa
-paluuarvonaan parametreja vastaavan sekuntimäärän vuorokauden alusta lukien.
-Testaa aliohjelmasi toimintaa sopivalla pääohjelmalla; esimerkiksi voit kutsua
-pääohjelmassasi ensin aika_sekunneiksi –aliohjelmaa ja sen jälkeen aliohjelmaa
-sekunnit_ajaksi (= harjoituksen 2 ratkaisu), jolle annat sekuntimääränä 1.
-aliohjelmakutsun palauttaman arvon. 2. aliohjelmakutsun palauttaman ajankohdan
-pitäisi olla sama kuin 1. aliohjelmakutsulle annettiin parametrina.
-Ajoesimerkki:
-2 tuntia 46 minuuttia 40 sekuntia on 10000 sekuntia joka on
-puolestaan 2 tuntia 46 minuuttia 40 sekuntia.
+Tee pääohjelma, josta löytyy seuraavat asiat / käsittelyt (tehtävä saattaa
+vaikuttaa pitkältä mutta ratkaisu ei sitä ole koska jokaista kysyttyä asiaa
+kohden tehdään suurinpiirtein yksi ohjelmalause! Pääasiana on treenata C++
+-tietueiden käyttöä):
+-
+-
+-
+Ohjelman alussa luot tietuetyypin aika_ty, joka sisältää kentät ajankohdan
+tunneille, minuuteille ja sekunneille.
+Tee pääohjelman alussa aikatietuetyyppiä oleva muuttuja.
+Lue sisältö aikamuuttujaasi päätteeltä. Syöte ohjelmalle voidaan antaa vaikkapa
+seuraavasti:
+Anna tunnit: 12
+Anna minuutit: 33
+Anna sekunnit: 44
+, missä käyttäjän syötteet on merkitty harmaalla taustavärillä.
+-
+Jos luetussa syötteessä oli virhe (tunnit ei välillä 0 – 23 jne.) , tästä
+annetaan virheilmoitus näytölle.-
+-
+-
+Mikäli ajankohdan tunnit, minuutit ja sekunnit olivat kunnossa, ohjelma tulostaa
+syötetyn ajankohdan päätteelle muodossa hh:mm:ss (hh = tunnit, mm = minuutit, ss
+= sekunnit)
+Tee vielä osoitinmuuttuja, joka osoittaa aiemmin tekemääsi aikatietuemuuttujaan.
+Tulosta aikatietumuuttujan sisältö uudestaan näytölle käyttäen vain tätä
+osoitinmuuttujaa.
+Tee ohjelmaasi kaksi uutta aikatietuemuuttujaa joista toiseen asetat arvoksi
+jonkin järkevän ajankohdan. Kopioi sitten tämän muuttujan arvo siihen toiseen
+tässä vaiheessa luomaasi aikatietumuuttujaan. Tee tämän jälkeen vertailulause
+jossa vertaat näiden kahden muuttujan sisältöä keskenään ja jos ne ovat samat
+(pitäisi olla) tulosta näytölle ilmoitus: ”Sisällöt ovat samat.”
 */
 
 #include <cmath>
