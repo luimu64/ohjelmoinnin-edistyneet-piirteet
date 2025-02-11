@@ -47,19 +47,7 @@ std::vector<Line> findLines(std::string file_name, std::string search,
         }
         input_file.close();
     }
-
     return lines;
-}
-
-void printResults(std::string data_string, std::string search, int pos) {
-    if (pos != -1) {
-        std::cout << "\"" + search + "\"" << " found in "
-                  << "\"" + data_string + "\"" << " in position " << pos
-                  << std::endl;
-    } else {
-        std::cout << "\"" + search + "\"" << " NOT found in "
-                  << "\"" + data_string + "\"" << std::endl;
-    }
 }
 
 void printResults(std::vector<Line> lines, std::string search,
