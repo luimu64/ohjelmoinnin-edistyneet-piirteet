@@ -2,13 +2,18 @@
 //
 // Example:
 [
-  {
-    "label": "Compile and run",
-    "command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main"
-  },
-  {
-    "label": "Compile and run mygrep",
-    "command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main",
-    "args": ["following", "man_grep_plain_ASCII.txt"]
-  }
+	{
+		"label": "Compile and run",
+		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main"
+	},
+	{
+		"label": "Compile and run mygrep with no flags",
+		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main",
+		"args": ["following", "man_grep_plain_ASCII.txt"]
+	},
+	{
+		"label": "Compile and run mygrep with some flags",
+		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main",
+		"args": ["-olo", "following", "man_grep_plain_ASCII.txt"]
+	}
 ]

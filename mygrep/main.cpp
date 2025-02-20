@@ -8,9 +8,10 @@ struct Line {
     std::string line_data;
 };
 
-struct ProcessedArguments {
+struct InputData {
     std::string search;
     std::string file_name;
+    std::string data_string;
     bool ignore_case = false;
     bool reverse_search = false;
     bool line_numbers = false;
@@ -59,82 +60,93 @@ std::vector<Line> findLines(std::string file_name, std::string search,
     return lines;
 }
 
-void printResults(std::vector<Line> lines, std::string search,
-                  std::string source, bool no_file = false) {
+void printResults(std::vector<Line> lines, InputData idata,
+                  bool no_file = false) {
     // when no file is given the printing output needs to be different
     if (no_file && lines[0].line_nro != -1) {
-        std::cout << "\"" + search + "\"" << " found in "
+        std::cout << "\"" + idata.search + "\"" << " found in "
                   << "\"" + lines[0].line_data + "\"" << " in position "
                   << lines[0].line_nro << std::endl;
 
     } else if (lines.capacity() > 0) {
-        for (const struct Line& i : lines)
-            std::cout << i.line_data << std::endl;
-
+        for (const struct Line& line : lines) {
+            if (idata.line_numbers) {
+                std::cout << line.line_nro << ":";
+            }
+            std::cout << line.line_data << std::endl;
+        }
+        if (idata.occurrences) {
+            std::cout << "\nOccurrences of lines containing \"" << idata.search
+                      << "\": " << lines.size() << std::endl;
+        }
     } else {
-        std::cout << "\"" + search + "\"" << " NOT found in "
-                  << "\"" + source + "\"" << std::endl;
+        std::cout << "\"" + idata.search + "\"" << " NOT found in "
+                  << "\"" + idata.data_string + "\"" << std::endl;
     }
 }
 
-ProcessedArguments parseFlags(int argc, char* argv[]) {
-    ProcessedArguments arguments;
+InputData parseFlags(int argc, char* argv[]) {
+    InputData idata;
     // start indexing from 1 because argv[0] is the program name
     for (int i = 1; i < argc; i++) {
+    next_flag:
         if (argv[i][0] == '-' && argv[i][1] == 'o') {
-            switch (argv[i][2]) {
-            case 'o':
-                arguments.occurrences = true;
-                break;
-            case 'i':
-                arguments.ignore_case = true;
-                break;
-            case 'v':
-                arguments.reverse_search = true;
-                break;
-            case 'l':
-                arguments.line_numbers = true;
-                break;
-            default:
-                std::cout << "Invalid flag: " << argv[i][2] << std::endl;
-                break;
+            for (int j = 2; j < (int)std::string(argv[i]).length(); j++) {
+                switch (argv[i][j]) {
+                case ' ':
+                    goto next_flag;
+                case 'o':
+                    idata.occurrences = true;
+                    break;
+                case 'i':
+                    idata.ignore_case = true;
+                    break;
+                case 'v':
+                    idata.reverse_search = true;
+                    break;
+                case 'l':
+                    idata.line_numbers = true;
+                    break;
+                default:
+                    std::cout << "Invalid flag: " << argv[i][j] << std::endl;
+                    break;
+                }
             }
         } else {
-            if (arguments.search == "")
-                arguments.search = argv[i];
-            else if (arguments.file_name == "")
-                arguments.file_name = argv[i];
+            if (idata.search == "")
+                idata.search = argv[i];
+            else if (idata.file_name == "")
+                idata.file_name = argv[i];
             else
                 std::cout << "Too many arguments" << std::endl;
         }
     }
-    return arguments;
+    return idata;
 }
 
 int main(int argc, char* argv[]) {
     std::vector<Line> lines;
+    InputData idata;
 
     if (argc > 1) { // check whether commandline arguments were given
-        ProcessedArguments arguments = parseFlags(argc, argv);
+        idata = parseFlags(argc, argv);
 
         // find lines with matching content and add them to lines vector
-        findLines(arguments.file_name, arguments.search, lines);
+        findLines(idata.file_name, idata.search, lines);
         // print all found lines
-        printResults(lines, arguments.search, arguments.file_name);
+        printResults(lines, idata);
 
     } else { // no arguments given
-        std::string data_string;
-        std::string search;
-
         std::cout << "Give a string which to search for: ";
-        std::getline(std::cin, data_string);
+        std::getline(std::cin, idata.data_string);
 
         std::cout << "Give search string: ";
-        std::getline(std::cin, search);
+        std::getline(std::cin, idata.search);
 
         // print strings found
-        lines.push_back({findPos(data_string, search), data_string});
-        printResults(lines, search, data_string, true);
+        lines.push_back(
+            {findPos(idata.data_string, idata.search), idata.data_string});
+        printResults(lines, idata, true);
     }
 
     return 0;
