@@ -8,6 +8,15 @@ struct Line {
     std::string line_data;
 };
 
+struct ProcessedArguments {
+    std::string search;
+    std::string file_name;
+    bool ignore_case = false;
+    bool reverse_search = false;
+    bool line_numbers = false;
+    bool occurrences = false;
+};
+
 bool checkWord(std::string slice, std::string search, int pos) {
     bool same_word = true;
 
@@ -68,22 +77,55 @@ void printResults(std::vector<Line> lines, std::string search,
     }
 }
 
+ProcessedArguments parseFlags(int argc, char* argv[]) {
+    ProcessedArguments arguments;
+    // start indexing from 1 because argv[0] is the program name
+    for (int i = 1; i < argc; i++) {
+        if (argv[i][0] == '-' && argv[i][1] == 'o') {
+            switch (argv[i][2]) {
+            case 'o':
+                arguments.occurrences = true;
+                break;
+            case 'i':
+                arguments.ignore_case = true;
+                break;
+            case 'v':
+                arguments.reverse_search = true;
+                break;
+            case 'l':
+                arguments.line_numbers = true;
+                break;
+            default:
+                std::cout << "Invalid flag: " << argv[i][2] << std::endl;
+                break;
+            }
+        } else {
+            if (arguments.search == "")
+                arguments.search = argv[i];
+            else if (arguments.file_name == "")
+                arguments.file_name = argv[i];
+            else
+                std::cout << "Too many arguments" << std::endl;
+        }
+    }
+    return arguments;
+}
+
 int main(int argc, char* argv[]) {
-    std::string search;
-    std::string file_name;
-    std::string data_string;
     std::vector<Line> lines;
 
     if (argc > 1) { // check whether commandline arguments were given
-        search = argv[1];
-        file_name = argv[2];
+        ProcessedArguments arguments = parseFlags(argc, argv);
 
         // find lines with matching content and add them to lines vector
-        findLines(file_name, search, lines);
+        findLines(arguments.file_name, arguments.search, lines);
         // print all found lines
-        printResults(lines, search, file_name);
+        printResults(lines, arguments.search, arguments.file_name);
 
     } else { // no arguments given
+        std::string data_string;
+        std::string search;
+
         std::cout << "Give a string which to search for: ";
         std::getline(std::cin, data_string);
 
