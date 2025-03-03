@@ -78,7 +78,9 @@ void printResults(std::vector<Line> lines, InputData idata,
 
     if (lines.empty()) {
         std::cout << "\"" + idata.search + "\"" << " NOT found in "
-                  << "\"" + idata.data_string + "\"" << std::endl;
+                  << "\"" + (no_file ? idata.data_string : idata.file_name) +
+                         "\""
+                  << std::endl;
     } else if (no_file) { // when no file is given
         std::cout << "\"" + idata.search + "\"" << " found in "
                   << "\"" + lines[0].line_data + "\"" << " in position "
