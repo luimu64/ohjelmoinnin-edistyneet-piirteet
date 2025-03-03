@@ -34,42 +34,40 @@ void findPosFromString(std::vector<Line>& lines, InputData idata) {
 }
 
 void findLinesFromFile(std::vector<Line>& lines, InputData idata) {
-    std::ifstream input_file;
+    std::ifstream input_file(idata.file_name);
     std::string line;
     std::size_t pos;
     int lineNum = 1;
+
+    // throw an error if file cannot be opened
+    if (!input_file.is_open())
+        throw std::runtime_error("Error: Could not open file " +
+                                 idata.file_name);
 
     // do this here instead of in the loop because the search string doesn't
     // change unlike the line which is read one by one from the file
     if (idata.ignore_case)
         idata.search = toLower(idata.search);
 
-    input_file.open(idata.file_name);
-
     // loop through file line by line
-    if (input_file.is_open()) {
-        while (getline(input_file, line)) {
+    while (getline(input_file, line)) {
 
-            if (idata.ignore_case)
-                line = toLower(line);
+        if (idata.ignore_case)
+            line = toLower(line);
 
-            // the position isn't actually used for anything except checking if
-            // it's not found in which case we don't push it into the found
-            // lines (unless user gave r flag for reverse search)
-            pos = line.find(idata.search);
+        // the position isn't actually used for anything except checking if
+        // it's not found in which case we don't push it into the found
+        // lines (unless user gave r flag for reverse search)
+        pos = line.find(idata.search);
 
-            if (pos == std::string::npos && idata.reverse_search) {
-                lines.push_back({lineNum, line});
-            } else if (pos != std::string::npos && !idata.reverse_search) {
-                lines.push_back({lineNum, line});
-            }
-            lineNum++;
+        if (pos == std::string::npos && idata.reverse_search) {
+            lines.push_back({lineNum, line});
+        } else if (pos != std::string::npos && !idata.reverse_search) {
+            lines.push_back({lineNum, line});
         }
-        input_file.close();
-    } else {
-        std::cout << "Error opening file." << std::endl;
-        exit(1);
+        lineNum++;
     }
+    input_file.close();
 }
 
 // function for printing out the results
