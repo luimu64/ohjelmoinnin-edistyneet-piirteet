@@ -26,30 +26,32 @@ std::string toLower(std::string str) {
     return str;
 }
 
-bool checkWord(std::string slice, std::string search, int pos) {
-    bool same_word = true;
-
-    for (int i = 0; i < (int)search.size(); i++) {
-        if (!(slice[i] == search[i]))
-            same_word = false;
-    }
-
-    return same_word;
-}
-
-void findLines(std::string file_name, std::string search,
-               std::vector<Line>& lines) {
+void findLinesFromFile(std::vector<Line>& lines, InputData idata) {
     std::ifstream input_file;
     std::string line;
     std::size_t pos;
+    int lineNum = 1;
 
-    input_file.open(file_name);
+    // do this here instead of in the loop because the search string doesn't
+    // change unlike the line which is read one by one from the file
+    if (idata.ignore_case)
+        idata.search = toLower(idata.search);
+
+    input_file.open(idata.file_name);
     if (input_file.is_open()) {
         while (getline(input_file, line)) {
-            pos = line.find(search);
-            if (pos != std::string::npos) {
-                lines.push_back({(int)pos, line});
+
+            if (idata.ignore_case)
+                line = toLower(line);
+
+            pos = line.find(idata.search);
+
+            if (pos == std::string::npos && idata.reverse_search) {
+                lines.push_back({lineNum, line});
+            } else if (pos != std::string::npos && !idata.reverse_search) {
+                lines.push_back({lineNum, line});
             }
+            lineNum++;
         }
         input_file.close();
     } else {
@@ -100,7 +102,7 @@ InputData parseFlags(int argc, char* argv[]) {
                 case 'i':
                     idata.ignore_case = true;
                     break;
-                case 'v':
+                case 'r':
                     idata.reverse_search = true;
                     break;
                 case 'l':
@@ -130,7 +132,7 @@ int main(int argc, char* argv[]) {
     if (argc > 1) { // check whether commandline arguments were given
         idata = parseFlags(argc, argv);
         // find lines with matching content and add them to lines vector
-        findLines(idata.file_name, idata.search, lines);
+        findLinesFromFile(lines, idata);
         // print all found lines
         printResults(lines, idata);
 
@@ -143,7 +145,7 @@ int main(int argc, char* argv[]) {
 
         // print strings found
         lines.push_back(
-            {findPos(idata.data_string, idata.search), idata.data_string});
+            {(int)idata.data_string.find(idata.search), idata.data_string});
         printResults(lines, idata, true);
     }
 
