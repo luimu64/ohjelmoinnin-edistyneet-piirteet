@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <fstream>
 #include <iostream>
@@ -19,6 +20,12 @@ struct InputData {
     bool occurrences = false;
 };
 
+std::string toLower(std::string str) {
+    std::transform(str.begin(), str.end(), str.begin(),
+                   [](unsigned char c) { return std::tolower(c); });
+    return str;
+}
+
 bool checkWord(std::string slice, std::string search, int pos) {
     bool same_word = true;
 
@@ -30,30 +37,18 @@ bool checkWord(std::string slice, std::string search, int pos) {
     return same_word;
 }
 
-// find and return first appearance of substring in another string
-int findPos(std::string data_string, std::string search) {
-    for (int i = 0; i < (int)data_string.size(); i++) {
-        if (data_string[i] == search[0]) {
-            if (checkWord(data_string.substr(i, search.size()), search, i)) {
-                return i;
-            }
-        }
-    }
-    return -1;
-}
-
 void findLines(std::string file_name, std::string search,
                std::vector<Line>& lines) {
     std::ifstream input_file;
     std::string line;
-    int pos;
+    std::size_t pos;
 
     input_file.open(file_name);
     if (input_file.is_open()) {
         while (getline(input_file, line)) {
-            pos = findPos(line, search);
-            if (pos != -1) {
-                lines.push_back({pos, line});
+            pos = line.find(search);
+            if (pos != std::string::npos) {
+                lines.push_back({(int)pos, line});
             }
         }
         input_file.close();
