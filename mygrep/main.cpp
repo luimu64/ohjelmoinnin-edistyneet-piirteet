@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <fstream>
 #include <iostream>
 #include <string>
@@ -41,8 +42,8 @@ int findPos(std::string data_string, std::string search) {
     return -1;
 }
 
-std::vector<Line> findLines(std::string file_name, std::string search,
-                            std::vector<Line>& lines) {
+void findLines(std::string file_name, std::string search,
+               std::vector<Line>& lines) {
     std::ifstream input_file;
     std::string line;
     int pos;
@@ -56,10 +57,13 @@ std::vector<Line> findLines(std::string file_name, std::string search,
             }
         }
         input_file.close();
+    } else {
+        std::cout << "Error opening file." << std::endl;
+        exit(1);
     }
-    return lines;
 }
 
+// disgusting looking function for printing out the results
 void printResults(std::vector<Line> lines, InputData idata,
                   bool no_file = false) {
     // when no file is given the printing output needs to be different
@@ -130,7 +134,6 @@ int main(int argc, char* argv[]) {
 
     if (argc > 1) { // check whether commandline arguments were given
         idata = parseFlags(argc, argv);
-
         // find lines with matching content and add them to lines vector
         findLines(idata.file_name, idata.search, lines);
         // print all found lines

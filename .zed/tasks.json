@@ -3,6 +3,10 @@
 // Example:
 [
 	{
+		"label": "Compile",
+		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE"
+	},
+	{
 		"label": "Compile and run",
 		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main"
 	},
