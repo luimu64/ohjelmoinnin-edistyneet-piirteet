@@ -26,3 +26,39 @@ int Paivays::getVuosi() const { return vuosi; }
 void Paivays::tulostaPaivays() const {
     cout << paiva << "." << kuukausi << "." << vuosi << endl;
 }
+
+void Paivays::setAllFromUser() {
+    int paiva_, kuukausi_, vuosi_;
+    cout << "Anna päivä: ";
+    cin >> paiva_;
+    cout << "Anna kuukausi: ";
+    cin >> kuukausi_;
+    cout << "Anna vuosi: ";
+    cin >> vuosi_;
+    setPaiva(paiva_);
+    setKuukausi(kuukausi_);
+    setVuosi(vuosi_);
+}
+
+bool isKarkausvuosi(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+void Paivays::addPaiva() {
+    int paiviaVuodessa[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+    if (kuukausi == 2 && isKarkausvuosi(vuosi)) {
+        paiviaVuodessa[1] = 29;
+    }
+
+    paiva++;
+
+    if (paiva > paiviaVuodessa[kuukausi - 1]) {
+        paiva = 1;
+        kuukausi++;
+        if (kuukausi > 12) {
+            kuukausi = 1;
+            vuosi++;
+        }
+    }
+}

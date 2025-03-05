@@ -13,5 +13,16 @@ int main() {
     tanaan.tulostaPaivays();
     huomenna.tulostaPaivays();
 
+    Paivays uusiPaiva;
+    uusiPaiva.setPaiva(28);
+    uusiPaiva.setKuukausi(2);
+    uusiPaiva.setVuosi(2023);
+
+    uusiPaiva.tulostaPaivays();
+    uusiPaiva.addPaiva();
+    uusiPaiva.tulostaPaivays();
+    uusiPaiva.addPaiva();
+    uusiPaiva.tulostaPaivays();
+
     return 0;
 }

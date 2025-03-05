@@ -11,5 +11,7 @@ class Paivays {
     int getPaiva() const;
     int getKuukausi() const;
     int getVuosi() const;
+    void setAllFromUser();
+    void addPaiva();
     void tulostaPaivays() const;
 };
