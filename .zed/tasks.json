@@ -1,13 +1,18 @@
-// Static tasks configuration.
-//
-// Example:
 [
 	{
-		"label": "Compile",
+		"label": "Compile with g++",
 		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE"
 	},
 	{
-		"label": "Compile and run",
+		"label": "Compile with g++ and run",
 		"command": "g++ -std=c++23 -Wall -o main $ZED_FILE && ./main"
+	},
+	{
+		"label": "Generate Makefile with cmake",
+		"command": "cd build && cmake $ZED_DIRNAME"
+	},
+	{
+		"label": "Compile with make and run",
+		"command": "cd build && make && ./main"
 	}
 ]
