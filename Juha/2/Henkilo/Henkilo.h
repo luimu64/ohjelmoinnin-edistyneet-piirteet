@@ -12,6 +12,7 @@ class Henkilo {
     void tulostaHenkilonTiedot() const;
     Henkilo();
     Henkilo(string nimi, int ika);
+    ~Henkilo();
 
   private:
     string nimi;

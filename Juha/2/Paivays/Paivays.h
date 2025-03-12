@@ -17,4 +17,5 @@ class Paivays {
     void tulostaPaivays() const;
     Paivays();
     Paivays(int paiva, int kuukausi, int vuosi);
+    ~Paivays();
 };

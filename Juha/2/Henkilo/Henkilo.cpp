@@ -22,3 +22,5 @@ Henkilo::Henkilo(string nimi, int ika) : nimi(nimi), ika(ika) {
 Henkilo::Henkilo() : nimi("Tuntematon"), ika(0) {
     cout << "Henkilo–luokan parametriton rakentaja" << endl;
 }
+
+Henkilo::~Henkilo() { cout << "Henkilo-luokan purkaja kutsuttu" << endl; }

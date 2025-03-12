@@ -71,3 +71,5 @@ Paivays::Paivays(int paiva_, int kuukausi_, int vuosi_)
     : paiva(paiva_), kuukausi(kuukausi_), vuosi(vuosi_) {
     std::cout << "Paivays-luokan 2 parametrinen rakentaja" << std::endl;
 }
+
+Paivays::~Paivays() { cout << "Paivays-luokan purkaja kutsuttu" << endl; }
