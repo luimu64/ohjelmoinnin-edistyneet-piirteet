@@ -1,10 +1,20 @@
 #include "Noppa.h"
-#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 int main() {
+    srand(time(NULL));
+
     Noppa noppa;
     noppa.heitaNoppaa();
-    std::cout << "Viimeisin heitto: " << noppa.getViimeisinLukema()
-              << std::endl;
+    noppa.kerroViimeisenHeitonLukema();
+
+    Noppa monopoli(2);
+    monopoli.heitaNoppaa();
+    monopoli.kerroViimeisenHeitonLukema();
+
+    Noppa yatzy(6);
+    yatzy.heitaNoppaa();
+    yatzy.kerroViimeisenHeitonLukema();
     return 0;
 }
