@@ -35,3 +35,10 @@ void Noppa::heitaNoppaa() {
 }
 
 int Noppa::getViimeisinLukema() { return viimeisinLukema; }
+
+void Noppa::setNoppienLkm(int noppienLkm) {
+    this->noppienLkm = noppienLkm;
+    noppienArvot.resize(noppienLkm, 1);
+}
+
+int Noppa::getNoppienLkm() { return noppienLkm; }

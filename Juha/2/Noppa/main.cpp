@@ -8,6 +8,9 @@ int main() {
     Noppa noppa;
     noppa.heitaNoppaa();
     noppa.kerroViimeisenHeitonLukema();
+    noppa.setNoppienLkm(4);
+    noppa.heitaNoppaa();
+    noppa.kerroViimeisenHeitonLukema();
 
     Noppa monopoli(2);
     monopoli.heitaNoppaa();
