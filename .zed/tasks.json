@@ -9,7 +9,7 @@
 	},
 	{
 		"label": "Generate Makefile with cmake",
-		"command": "cd build && cmake $ZED_DIRNAME"
+		"command": "cd build && rm -r * && cmake $ZED_DIRNAME"
 	},
 	{
 		"label": "Compile with make and run",
